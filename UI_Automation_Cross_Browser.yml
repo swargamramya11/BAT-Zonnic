@@ -1,0 +1,76 @@
+name: UI Automation $(site) $(environment)
+
+jobs:
+- job: functionalTests
+  timeoutInMinutes: 1100
+  # The pool name determines the target environment, referencing a self-hosted agent
+  pool:
+    vmImage: ubuntu-20.04
+
+  variables:
+    magento.projectName: "smoke-functional-test"
+    # selenium.DriverHost: '13.95.236.240'
+    # selenium.DriverPort: '4444'
+
+  steps:
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '8'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  - bash: |
+     #! /bin/bash
+     ## Define environment variables
+     varHOSTNAME=$(hostname)
+     sudo apt-get -y install maven
+     echo ">>> I am running on node: $varHOSTNAME <<<"
+     echo ""
+     echo ">>> Java Version <<<"
+     java -version
+     echo ""
+     echo ">>> Maven Version <<<"
+     mvn -version
+     echo ""
+     ## No validation for test.Options
+    displayName: 'Initialise Environment'
+
+  - task: BrowserStackConfig@0
+    inputs:
+      BrowserStackServiceEndPoint: 'Connection'
+      browserstackLocal: true
+
+  - task: Maven@3
+    displayName: 'Run Selenium Testing Framework'
+    inputs:
+      mavenPomFile: 'zonnicautomation/pom.xml'
+      goals: 'clean install'
+      options: '-Dbrowser=browserstackdesktop -P$(site) -P$(environment) -P$(pack) -P$(province) -Pbrowserstack-$(browser) -DeyesOn=$(eyes) -DuseEyesGrid=$(useEyesGrid)'
+      publishJUnitResults: true
+      testResultsFiles: '**/cucumber*.xml'
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
+    condition: succeededOrFailed()
+    
+  - task: BrowserStackResults@1
+    condition: succeededOrFailed()
+  - task: BrowserStackStopLocal@0
+    condition: succeededOrFailed()
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive: HTML Test Results'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)/zonnicautomation/target/cucumber-report/'
+      includeRootFolder: false
+      archiveFile: '$(Build.StagingDirectory)/$(magento.projectName)-results-$(Build.BuildId).zip'
+    condition: succeededOrFailed()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: HTML Test Results'
+    inputs:
+      PathtoPublish: '$(Build.StagingDirectory)/$(magento.projectName)-results-$(Build.BuildId).zip'
+      ArtifactName: '$(magento.projectName)-results'
+    condition: succeededOrFailed()

@@ -1,0 +1,8 @@
+discovery:
+  allowedHostnames: []
+  disallowedHostnames: []
+  networkIdleTimeout: 750
+  disableCache: true
+  authorization:
+    username: bat-reviewer
+    password: bAT!+4sa7ya

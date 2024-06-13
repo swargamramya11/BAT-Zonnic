@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.salmon.test</groupId>
+    <artifactId>salmonAutomationFramework</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- Test Profiles, define URL for AUT, Browser and Test Suites -->
+    <profiles>
+        <profile>
+            <id>browserstack-firefox</id>
+            <activation>
+            </activation>
+            <properties>
+                <profile.path>/profiles/browserstack/browserstack_firefox.properties</profile.path>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>browserstack-chrome</id>
+            <activation>
+            </activation>
+            <properties>
+                <profile.path>/profiles/browserstack/browserstack_chrome.properties</profile.path>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>browserstack-edge</id>
+            <activation>
+            </activation>
+            <properties>
+                <profile.path>/profiles/browserstack/browserstack_edge.properties</profile.path>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>browserstack-safari</id>
+            <activation>
+            </activation>
+            <properties>
+                <profile.path>/profiles/browserstack/browserstack_safari.properties</profile.path>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>local-windows</id>
+            <activation>
+            </activation>
+            <properties>
+                <profile.path>/profiles/local-windows/config.properties</profile.path>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>local-mac</id>
+            <properties>
+                <profile.path>/profiles/local-mac/config.properties</profile.path>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>smoke-zonnicCA</id>
+            <properties>
+                <test-suite>Smoke</test-suite>
+                <testToRun>RunUniversalSmokeZonnicCA.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>Live-smoke-zonnicCA</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <testToRun>RunUniversalSmokeLiveZonnicCA.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>run-required-test-cases</id>
+            <properties>
+                <test-suite>Test Cases</test-suite>
+                <province>Alberta</province>
+                <testToRun>RunRequiredTestCasesZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>run-required-test-cases-prod</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Alberta</province>
+                <testToRun>RunRequiredTestCasesZonnicCAProdSuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-ab</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Alberta</province>
+                <testToRun>RunABRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-bc</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>British Columbia</province>
+                <testToRun>RunBCRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-mb</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Manitoba</province>
+                <testToRun>RunMBRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-nb</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>New Brunswick</province>
+                <testToRun>RunNBRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-nl</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Newfoundland and Labrador</province>
+                <testToRun>RunNLRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-ns</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Nova Scotia</province>
+                <testToRun>RunNSRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-on</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Ontario</province>
+                <testToRun>RunONRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-pi</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Prince Edward Island</province>
+                <testToRun>RunPIRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-sk</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Saskatchewan</province>
+                <testToRun>RunSKRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression-qb</id>
+            <properties>
+                <test-suite>Regression</test-suite>
+                <province>Quebec</province>
+                <testToRun>RunQBRegressionZonnicCASuite.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-ab</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Alberta</province>
+                <testToRun>RunABLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-bc</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>British Columbia</province>
+                <testToRun>RunBCLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-mb</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Manitoba</province>
+                <testToRun>RunMBLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-nb</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>New Brunswick</province>
+                <testToRun>RunNBLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-nl</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Newfoundland and Labrador</province>
+                <testToRun>RunNLLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-ns</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Nova Scotia</province>
+                <testToRun>RunNSLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-on</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Ontario</province>
+                <testToRun>RunONLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-pi</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Prince Edward Island</province>
+                <testToRun>RunPILiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-sk</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Saskatchewan</province>
+                <testToRun>RunSKLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>live-qb</id>
+            <properties>
+                <test-suite>Live</test-suite>
+                <province>Quebec</province>
+                <testToRun>RunQBLiveZonnicCASuite.class</testToRun>
+                <override.url>https://www.zonnic.ca/</override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>zonnic-ca-fr</id>
+            <properties>
+                <defaultLocale>zonnicca</defaultLocale>
+                <lang>fr</lang>
+                <site>zonnic</site>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>zonnic-ca-en</id>
+            <properties>
+                <defaultLocale>zonnicca</defaultLocale>
+                <lang>en</lang>
+                <site>zonnic</site>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>percy-zonnicca</id>
+            <activation>
+            </activation>
+            <properties>
+                <testToRun>RunPercyUniversalSmokeZonnicCA.class</testToRun>
+                <override.url>https://bat-reviewer:bAT!+4sa7ya@www-ca-uat1-canada-zonnic.non-prod.marketing.bat.net/
+                </override.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>env_uat1</id>
+            <activation>
+            </activation>
+            <properties>
+                <env>uat1</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>env_uat2</id>
+            <properties>
+                <env>uat2</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>env_prelive2</id>
+            <activation>
+            </activation>
+            <properties>
+                <env>prelive2</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>env_prelive1</id>
+            <activation>
+            </activation>
+            <properties>
+                <env>prelive1</env>
+            </properties>
+        </profile>
+    </profiles>
+
+    <properties>
+        <maven-compiler-plugin>3.8.0</maven-compiler-plugin>
+        <java-version>1.8</java-version>
+        <utf-8>UTF-8</utf-8>
+        <maven-surefire-plugin>2.22.1</maven-surefire-plugin>
+        <maven-resource-plugin>3.1.0</maven-resource-plugin>
+        <maven-cucumber-reporting>3.16.0</maven-cucumber-reporting>
+        <cucumber.version>2.4.0</cucumber.version>
+        <selenium.version>3.14.0</selenium.version>
+        <rest-assured>5.3.0</rest-assured>
+        <jackson-core>2.9.7</jackson-core>
+        <testng>7.5.1</testng>
+        <slf4jVersion>2.0.5</slf4jVersion>
+        <joda-time>2.12.5</joda-time>
+        <commons-lang>3.12.0</commons-lang>
+        <lombok>1.18.26</lombok>
+        <commons-io>2.11.0</commons-io>
+        <jsch-version>0.1.55</jsch-version>
+        <podam>7.2.11.RELEASE</podam>
+        <mysql>8.0.33</mysql>
+        <appium-java-client>6.1.0</appium-java-client>
+        <common-db-utils>1.7</common-db-utils>
+        <assertj-assert>3.11.1</assertj-assert>
+        <db2.version>1.4.2</db2.version>
+        <oracle.version>10.2.0.5</oracle.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin}</version>
+                <configuration>
+                    <encoding>${utf-8}</encoding>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin}</version>
+                <executions>
+                    <execution>
+                        <id>test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <threadCount>4</threadCount>
+                            <perCoreThreadCount>true</perCoreThreadCount>
+                            <forkCount>4</forkCount>
+                            <reuseForks>false</reuseForks>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <argLine>-javaagent:"${com.browserstack:browserstack-java-sdk:jar}" -Duser.language=en
+                            </argLine>
+                            <argLine>-javaagent:"${com.browserstack:browserstack-java-sdk:jar}" -Xmx1024m</argLine>
+                            <argLine>-javaagent:"${com.browserstack:browserstack-java-sdk:jar}" -XX:MaxPermSize=256m
+                            </argLine>
+                            <argLine>-javaagent:"${com.browserstack:browserstack-java-sdk:jar}" -Dfile.encoding=UTF-8
+                            </argLine>
+                            <useFile>false</useFile>
+                            <includes>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <include>${testToRun}</include>
+                            </includes>
+                            <!--                                                        <testFailureIgnore>true</testFailureIgnore>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resource-plugin}</version>
+                <configuration>
+                    <!-- specify UTF-8, ISO-8859-1 or any other file encoding -->
+                    <encoding>${utf-8}</encoding>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>${maven-cucumber-reporting}</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>test</phase>
+
+                        <configuration>
+                            <projectName>cucumbertests</projectName>
+                            <outputDirectory>target/cucumber-report</outputDirectory>
+                            <cucumberOutput>target/cucumber-report/cucumber.json</cucumberOutput>
+                            <!--enableFlashCharts>false</enableFlashCharts-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>getClasspathFilenames</id>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>net.lightbody.bmp</groupId>
+            <artifactId>browsermob-core</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.90.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.2gis.winium</groupId>
+            <artifactId>winium-webdriver</artifactId>
+            <version>0.1.0-1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-jvm</artifactId>
+            <scope>test</scope>
+            <version>7.15.0</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>2.4.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.15.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>2.4.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-core}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4jVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-assert}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>${appium-java-client}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>${common-db-utils}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc</artifactId>
+            <version>${db2.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/tools/lib/db2jcc.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc_license_cu</artifactId>
+            <version>${db2.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/tools/lib/db2jcc_license_cu.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>${oracle.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/tools/lib/ojdbc14.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>uk.co.jemos.podam</groupId>
+            <artifactId>podam</artifactId>
+            <version>${podam}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${jsch-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.applitools</groupId>
+            <artifactId>eyes-selenium-java5</artifactId>
+            <version>5.50.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>amazon-sqs-java-messaging-lib</artifactId>
+            <version>2.1.0</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.12.429</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>iam</artifactId>
+            <groupId>software.amazon.awssdk</groupId>
+            <version>2.20.26</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.6.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.percy</groupId>
+            <artifactId>percy-java-selenium</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.browserstack</groupId>
+            <artifactId>browserstack-java-sdk</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.browserstack</groupId>
+            <artifactId>testng-archetype-integrate</artifactId>
+            <version>LATEST</version>
+        </dependency>
+    </dependencies>
+</project>
